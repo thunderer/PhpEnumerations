@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  composer:
+    image: composer:1.6
+    volumes:
+      - .:/app
+      - ~/.composer:/root/composer
+
+  fpm-web:
+    image: php:7-fpm
+    hostname: fpm-web
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ~/.composer:/root/composer
+    env_file:
+      - .env
+
+  nginx-web:
+    image: nginx:1-alpine
+    hostname: nginx-web
+    ports:
+      - 8080:80
+    volumes:
+      - .:/app
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf

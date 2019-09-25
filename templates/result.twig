@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+    <head>
+        <title>PHP Enum</title>
+        <style type="text/css">
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500,700');
+
+html, body { margin: 0; padding: 0; border: none; width: 100%; height: 100%; font: 12px Roboto; font-weight: 500; color: #212121; }
+a { text-decoration: none; color: #212121; }
+a::after { content: ' \1f517'; }
+table { width: 100%; height: 100%; border-collapse: collapse; overflow: hidden; }
+table td { text-align: center; padding: 1px; position: relative; }
+table tbody tr:hover td { background: #BCAAA4; }
+table tr.separator td { height: 3px; padding: 0; }
+table tr:hover td:hover::after { background: #BCAAA4; content: ''; height: 10000px; left: 0; position: absolute; top: -5000px; width: 100%; z-index: -1; }
+.header { font-weight: 700; background: #212121; color: #F5F5F5; padding: 5px; }
+.header a { color: #F5F5F5; }
+.bold { font-weight: 500; }
+.info { text-decoration: underline dotted; }
+
+table td.success { background: #C8E6C9; }   table tr:hover td.success { background: #A5D6A7; }  table tr:hover td.success:hover { background: #81C784; }
+table td.maybe { background: #F0F4C3; }     table tr:hover td.maybe { background: #E6EE9C; }    table tr:hover td.maybe:hover { background: #DCE775; }
+table td.error { background: #ffcdd2; }     table tr:hover td.error { background: #ef9a9a; }    table tr:hover td.error:hover { background: #e57373; }
+table td.todo { background: #B3E5FC; }      table tr:hover td.todo { background: #81D4FA; }     table tr:hover td.todo:hover { background: #4FC3F7; }
+table td.miss { background: #D1C4E9; }      table tr:hover td.miss { background: #B39DDB; }     table tr:hover td.miss:hover { background: #9575CD; }
+        </style>
+    </head>
+    <body>
+
+<table>
+    <thead>
+        <tr>
+            <td colspan="{{ results|length + 1 }}" class="header">PHP enumeration (enum) libraries comparison</td>
+        </tr>
+        <tr>
+            <td colspan="{{ results|length + 1 }}" class="header">
+                green = passed,
+                yellow = passed with limitations,
+                red = failed,
+                purple = no support,
+                blue = todo,
+                mouseover check name to see description, sorted by number of passes
+            </td>
+        </tr>
+        <tr>
+            <td>vendor</td>
+            {% for vendor, result in results %}
+            <td class="bold">{{ vendor|breakCapitals|join('<br />')|raw }}</td>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for key in results[attribute(results|keys, 0)]|keys if key is not same as('package') and key is not same as('repository') %}
+        <tr class="{% if key is numeric %}separator{% endif %}">
+            <td title="{{ key|description }}" class="info">{% if key is not numeric %}{{ key }}{% endif %}</td>
+            {% for vendor, result in results %}
+                {% if key is same as('downloads') %}<td><a href="https://packagist.org/packages/{{ result.package|replace({ 'INFO, ': '' }) }}">{{ result[key]|replace({ 'INFO, ': '' }) }}</a></td>
+                {% elseif key is same as('stars') %}<td><a href="https://github.com/{{ result.repository|replace({ 'INFO, ': '' }) }}">{{ result[key]|replace({ 'INFO, ': '' }) }}</a></td>
+                {% elseif result[key] == 'BREAK' %}<td></td>
+                {% elseif result[key] == 'PASS' %}<td class="success">&#x2714;</td>
+                {% elseif result[key] == 'FAIL' %}<td class="error">&#x2717;</td>
+                {% elseif result[key] == 'N/A' %}<td class="miss">&mdash;</td>
+                {% elseif result[key]|startsWith('INFO,') %}<td>{{ result[key]|replace({'INFO, ': ''}) }}</td>
+                {% elseif result[key]|startsWith('PASS,') %}<td class="maybe">{{ result[key]|replace({'PASS, ': '&#x2714; '})|raw }}</td>
+                {% elseif result[key]|startsWith('TODO,') %}<td class="todo">&equals;</td>
+                {% elseif result[key]|startsWith('FAIL,') %}<td class="error">{{ result[key]|replace({'FAIL, ': '&#x2717; '})|raw }}</td>
+                {% else %}<td>{{ result[key] }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="{{ results|length + 1 }}" class="header">&copy;2019 <a href="https://kowalczyk.cc">Tomasz Kowalczyk</a></td>
+        </tr>
+    </tfoot>
+</table>
+
+    </body>
+</html>

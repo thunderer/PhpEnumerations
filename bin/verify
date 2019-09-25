@@ -1,0 +1,62 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+namespace X;
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableSeparator;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
+use Thunder\PhpEnumerations\Runner\Runner;
+
+require __DIR__.'/../vendor/autoload.php';
+
+$app = new Application('PHP Enum', 'v0.1');
+$app->add(new class extends Command {
+    protected function configure()
+    {
+        $this
+            ->setName('verify')
+            ->setDescription('Verify all supported enum implementations');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $output->writeln('PHP enumeration libraries comparison');
+
+        $this->renderCli($output, (new Runner())->run());
+    }
+
+    public function renderCli(OutputInterface $output, array $results): void
+    {
+        $table = new Table($output);
+        $table->setStyle('box');
+        $count = \count($results);
+        for($i = 0; $i <= $count; $i++) {
+            $table->setColumnMaxWidth($i, 50);
+        }
+        $header = array_merge([''], array_keys($results));
+        $tests = array_keys($results[array_keys($results)[0]]);
+        foreach($tests as $index => $test) {
+            if(is_int($test)) {
+                $table->addRow(new TableSeparator());
+                continue;
+            }
+            $row = [$test];
+            foreach($results as $result) {
+                $row[] = $result[$test];
+            }
+            $table->addRow($row);
+        }
+        $table->setHeaders(array_map(function(string $str) {
+            return trim(implode("\n", preg_split('~(?=[A-Z])~', $str, 3)));
+        }, $header));
+        $table->render();
+    }
+});
+
+$app->run(new ArgvInput(), new ConsoleOutput());
