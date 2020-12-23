@@ -2,6 +2,22 @@
 
 This project provides an unified feature comparison between most popular PHP enumeration (enum) libraries.
 
+## Libraries
+
+* [thunderer/platenum](https://github.com/thunderer/Platenum),
+* [bensampo/laravel-enum](https://github.com/BenSampo/laravel-enum),
+* [commerceguys/enum](https://github.com/commerceguys/enum),
+* [dasprid/enum](https://github.com/DASPRiD/Enum),
+* [elao/enum](https://github.com/Elao/PhpEnums),
+* [eloquent/enumeration](https://github.com/eloquent/enumeration),
+* [esky/enum](https://github.com/eskypl/enum),
+* [greg0ire/enum](https://github.com/greg0ire/enum),
+* [happy-types/enumerable-type](https://github.com/antanas-arvasevicius/enumerable-type),
+* [konekt/enum](https://github.com/artkonekt/enum),
+* [marc-mabe/php-enum](https://github.com/marc-mabe/php-enum),
+* [myclabs/php-enum](https://github.com/myclabs/php-enum),
+* [spatie/enum](https://github.com/spatie/enum).
+
 ## Process
 
 Each vendor implementation defines an equivalent of two enumerations:
@@ -67,10 +83,19 @@ Features are divided into groups, based on the common use cases. Feature "passes
     * **magic-clone**: block `__clone()`,
     * **magic-invoke**: block `__invoke()`,
     * **magic-call**: block `__call()`,
-    * **magic-props**: block `__set()`, `__get()`, `__isset()`, and `__unset()`,
+    * **magic-props**: block `__set()`, `__get()`, `__isset()`, and `__unset()`.
 
 ## Ideas
 
+* miscellaneous:
+  * **misc-doctrine** Doctrine ORM type mapping tooling,
+  * **misc-type** verify that all member values are of the same type,
+  * **misc-unique** all members values should be unique,
+  * **misc-qa** quality control tools used (Psalm, PHPStan, InfectionPHP, etc.),
+  * **misc-sources** allows creation of enumerations from multiple sources,
+  * **misc-exception** allows throwing custom exceptions,
+  * **misc-external** allows sourcing members from external world,
+  * **misc-warmup** allows instantiating all members at once.
 * **verify-unique**: enum should contain unique members with unique values,
 * **magic-export**: call `var_export()` and restore instance during `__set_state()`,
 * **magic-debug**: call `var_dump()` and see what is inside using `__debugInfo()`,
@@ -81,5 +106,8 @@ Features are divided into groups, based on the common use cases. Feature "passes
 
 ## Links
 
-* [Reddit: Why are there no proper enums in PHP?](https://www.reddit.com/r/PHP/comments/6it21f/why_are_there_no_proper_enums_in_php_are_they/)
-* [Reddit: Thoughts on userland enum implementations.](https://www.reddit.com/r/PHP/comments/d45je0/some_thoughts_on_enum_implementations_in_userland/)
+* [Reddit: Why are there no proper enums in PHP](https://www.reddit.com/r/PHP/comments/6it21f/why_are_there_no_proper_enums_in_php_are_they/),
+* [Reddit: Thoughts on userland enum implementations](https://www.reddit.com/r/PHP/comments/d45je0/some_thoughts_on_enum_implementations_in_userland/),
+* [Reddit: Approach to saving enum data types in PHP](https://www.reddit.com/r/PHP/comments/fi2bd8/an_approach_to_saving_enum_data_types_in_php/),
+* [Reddit: Enumerations and PHP](https://www.reddit.com/r/PHP/comments/7ekrse/enumerations_and_php/),
+* [Reddit: PHP Enum implementation inspired from SplEnum](https://www.reddit.com/r/PHP/comments/1iy1dp/php_enum_implementation_inspired_from_splenum/).
