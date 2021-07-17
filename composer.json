@@ -38,7 +38,6 @@
         "esky/enum": "^1.1",
         "dkd/enumeration": "^0.1",
         "crussell52/php-enum": "^0.1",
-        "theantichris/enum": "^1.0",
         "pulyaevskiy/enum": "^1.2",
         "phpextra/enum": "^1.0",
         "olegstyle/enum": "^1.0",
@@ -47,7 +46,6 @@
         "youngsource/typed-enum": "^1.3",
         "mesavolt/named-enum": "^0.6",
         "wirus15/enum": "^0.5",
-        "runmybusiness/enum": "^0.1",
         "richard-ejem/enum": "^1.0",
         "php-extended/php-enumerable": "^1.2"
     },
