@@ -48,6 +48,12 @@ and an implementation of `VendorInterface` which provides all kinds of callbacks
 
 Features are divided into groups, based on the common use cases. Feature "passes" if the library allows to complete certain requirement with a simple call to its methods - dedicated manipulation of the returned value in order to match the expectations is not allowed. All tests are listed below:
 
+* information about...
+    * **downloads** the number of Packagist downloads,
+    * **updated** the date of last GitHub commit,
+    * **stars** number of GitHub repository stars,
+    * **version** last stable release version number,
+    * **sources** available sources for enumerations members,
 * guarantee that...
     * **verify-unique**: only one instance of given member can exist in the runtime,
     * **verify-ctor**: re-calling `__construct()` does not break the instance,

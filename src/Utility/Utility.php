@@ -20,6 +20,7 @@ use Thunder\PhpEnumerations\Check\ExistsKeyCheck;
 use Thunder\PhpEnumerations\Check\ExistsValueCheck;
 use Thunder\PhpEnumerations\Check\HasKeyCheck;
 use Thunder\PhpEnumerations\Check\HasValueCheck;
+use Thunder\PhpEnumerations\Check\InfoGithubUpdateCheck;
 use Thunder\PhpEnumerations\Check\InfoPackagistDownloadsCheck;
 use Thunder\PhpEnumerations\Check\InfoGithubCheck;
 use Thunder\PhpEnumerations\Check\InfoGithubStarsCheck;
@@ -90,6 +91,7 @@ final class Utility
         return [
             new InfoPackagistCheck(),
             new InfoPackagistDownloadsCheck(),
+            new InfoGithubUpdateCheck(getenv('GITHUB_HANDLE'), getenv('GITHUB_TOKEN')),
             new InfoGithubCheck(),
             new InfoGithubStarsCheck(getenv('GITHUB_HANDLE'), getenv('GITHUB_TOKEN')),
             new InfoVersionCheck(),
