@@ -37,6 +37,7 @@ final class SpatieEnumVendor implements VendorInterface
 
     public function packagistVendor(): string { return 'spatie/enum'; }
     public function githubRepository(): string { return 'spatie/enum'; }
+    public function sources(): array { return [self::SOURCE_CONSTANTS]; }
 
     public function fromKey(string $class, string $key): object { return $class::from($key); }
     public function fromValue(string $class, $value): object { UnsupportedException::throwException(); }

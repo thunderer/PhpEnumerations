@@ -40,6 +40,7 @@ final class ElaoEnumVendor implements VendorInterface
 
     public function packagistVendor(): string { return 'elao/enum'; }
     public function githubRepository(): string { return 'Elao/PhpEnums'; }
+    public function sources(): array { return [self::SOURCE_CONSTANTS]; }
 
     public function fromKey(string $class, string $key): object { UnsupportedException::throwException(); }
     public function fromValue(string $class, $value): object { return $class::get($value); }

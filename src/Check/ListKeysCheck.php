@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Thunder\PhpEnumerations\Check;
 
+use Thunder\PhpEnumerations\Utility\Utility;
 use Thunder\PhpEnumerations\ValueObject\ResultValue;
 use Thunder\PhpEnumerations\Vendor\VendorInterface;
 
@@ -27,13 +28,12 @@ final class ListKeysCheck implements CheckInterface
 
         $actual = $vendor->listKeys();
 
-        $canString = true;
+        if(false === Utility::attemptStringCastList($actual)) {
+            return ResultValue::failAnd('cast');
+        }
         set_error_handler(function() use(&$canString) { $canString = false; });
         $strval = array_map('strval', $actual);
         restore_error_handler();
-        if(false === $canString) {
-            return ResultValue::failAnd('cast');
-        }
 
         $arrayValuesStrval = array_values($strval);
 

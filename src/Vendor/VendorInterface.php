@@ -7,12 +7,19 @@ namespace Thunder\PhpEnumerations\Vendor;
  */
 interface VendorInterface
 {
+    public const SOURCE_CONSTANTS = 1;
+    public const SOURCE_DOCBLOCKS = 2;
+    public const SOURCE_STATIC = 3;
+    public const SOURCE_CALLBACK = 4;
+    public const SOURCE_ATTRIBUTES = 5;
+
     public function enumValidA(): object;
     public function enumValidB(): object;
     public function enumOther(): object;
 
     public function packagistVendor(): string;
     public function githubRepository(): string;
+    public function sources(): array;
 
     public function fromKey(string $class, string $key): object;
     public function fromValue(string $class, $value): object;

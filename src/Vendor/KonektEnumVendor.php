@@ -35,6 +35,7 @@ final class KonektEnumVendor implements VendorInterface
 
     public function packagistVendor(): string { return 'konekt/enum'; }
     public function githubRepository(): string { return 'artkonekt/enum'; }
+    public function sources(): array { return [self::SOURCE_CONSTANTS]; }
 
     public function fromKey(string $class, string $key): object { UnsupportedException::throwException(); }
     public function fromValue(string $class, $value): object { return $class::create($value); }

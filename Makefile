@@ -3,9 +3,11 @@ docker-up:
 	docker-compose up -d --force-recreate
 docker-down:
 	docker-compose down --remove-orphans
+docker-build:
+	docker-compose build
 
 composer-update:
-	docker-compose run --rm composer composer update
+	docker-compose run --rm fpm composer update
 
 run-verify:
-	docker-compose run --rm fpm-web php bin/verify verify
+	docker-compose run --rm fpm php bin/verify verify

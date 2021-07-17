@@ -35,6 +35,7 @@ final class EloquentEnumerationEnumerationVendor implements VendorInterface
 
     public function packagistVendor(): string { return 'eloquent/enumeration'; }
     public function githubRepository(): string { return 'eloquent/enumeration'; }
+    public function sources(): array { return [self::SOURCE_CONSTANTS]; }
 
     public function fromKey(string $class, string $key): object { return $class::memberByKey($key); }
     public function fromValue(string $class, $value): object { return $class::memberByValue($value); }

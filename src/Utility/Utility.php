@@ -24,6 +24,7 @@ use Thunder\PhpEnumerations\Check\InfoPackagistDownloadsCheck;
 use Thunder\PhpEnumerations\Check\InfoGithubCheck;
 use Thunder\PhpEnumerations\Check\InfoGithubStarsCheck;
 use Thunder\PhpEnumerations\Check\InfoPackagistCheck;
+use Thunder\PhpEnumerations\Check\InfoSourcesCheck;
 use Thunder\PhpEnumerations\Check\InfoVersionCheck;
 use Thunder\PhpEnumerations\Check\ListAssociativeCheck;
 use Thunder\PhpEnumerations\Check\ListKeysCheck;
@@ -92,6 +93,7 @@ final class Utility
             new InfoGithubCheck(),
             new InfoGithubStarsCheck(getenv('GITHUB_HANDLE'), getenv('GITHUB_TOKEN')),
             new InfoVersionCheck(),
+            new InfoSourcesCheck(),
             new SeparatorCheck(),
 
             new CreateInstanceCheck(),
@@ -158,6 +160,33 @@ final class Utility
         restore_error_handler();
 
         return $called;
+    }
+
+    public static function attemptStringCast($enum): bool
+    {
+        $castToString = function() use($enum) {
+            return (string)$enum;
+        };
+        try {
+            if(self::causesError($castToString)) {
+                return false;
+            }
+        } catch(\Error $e) {
+            return 'Object of class '.\get_class($enum).' could not be converted to string' !== $e->getMessage();
+        }
+
+        return true;
+    }
+
+    public static function attemptStringCastList(array $list): bool
+    {
+        foreach($list as $item) {
+            if(false === self::attemptStringCast($item)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public static function causesException(callable $fn): bool

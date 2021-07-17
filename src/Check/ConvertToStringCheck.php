@@ -25,11 +25,8 @@ final class ConvertToStringCheck implements CheckInterface
     {
         $first = $vendor->enumValidA();
 
-        $castToString = function() use($first) {
-            return (string)$first;
-        };
-        if(Utility::causesError($castToString)) {
-            return ResultValue::failAnd('magic');
+        if(false === Utility::attemptStringCast($first)) {
+            return ResultValue::failAnd('cast');
         }
 
         $value = (string)$first;

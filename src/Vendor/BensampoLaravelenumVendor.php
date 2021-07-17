@@ -35,6 +35,7 @@ final class BensampoLaravelenumVendor implements VendorInterface
 
     public function packagistVendor(): string { return 'bensampo/laravel-enum'; }
     public function githubRepository(): string { return 'BenSampo/laravel-enum'; }
+    public function sources(): array { return [self::SOURCE_CONSTANTS]; }
 
     public function fromKey(string $class, string $key): object { UnsupportedException::throwException(); }
     public function fromValue(string $class, $value): object { return $class::getInstance($value); }

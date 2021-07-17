@@ -33,6 +33,7 @@ final class ThundererPlatenumExtendsVendor implements VendorInterface
 
     public function packagistVendor(): string { return 'thunderer/platenum'; }
     public function githubRepository(): string { return 'thunderer/Platenum'; }
+    public function sources(): array { return [self::SOURCE_CONSTANTS, self::SOURCE_DOCBLOCKS, self::SOURCE_STATIC, self::SOURCE_CALLBACK, self::SOURCE_ATTRIBUTES]; }
 
     public function fromKey(string $class, string $key): object { return $class::fromMember($key); }
     public function fromValue(string $class, $value): object { return $class::fromValue($value); }

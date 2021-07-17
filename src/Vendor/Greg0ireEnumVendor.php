@@ -35,6 +35,7 @@ final class Greg0ireEnumVendor implements VendorInterface
 
     public function packagistVendor(): string { return 'greg0ire/enum'; }
     public function githubRepository(): string { return 'greg0ire/enum'; }
+    public function sources(): array { return [self::SOURCE_CONSTANTS]; }
 
     public function fromKey(string $class, string $key): object { UnsupportedException::throwException(); }
     public function fromValue(string $class, $value): object { UnsupportedException::throwException(); }
