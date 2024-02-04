@@ -64,4 +64,11 @@ final class HappytypesEnumerabletypeVendor implements VendorInterface
     public function listKeys(): array { return HappytypesFirstEnum::enum(); }
     public function listValues(): array { return HappytypesFirstEnum::enum(); }
     public function listKeysValues(): array { return HappytypesFirstEnum::enum(); }
+
+    public function getInstances(): array { NotImplementedException::throwException(); }
+    public function valuesExist(array $list): bool { NotImplementedException::throwException(); }
+    public function membersExist(array $list): bool { NotImplementedException::throwException(); }
+    public function instanceIn($enum, array $list): bool { NotImplementedException::throwException(); }
+    public function memberIn($enum, array $list): bool { NotImplementedException::throwException(); }
+    public function valueIn($enum, array $list): bool { NotImplementedException::throwException(); }
 }

@@ -34,6 +34,10 @@ final class InfoGithubUpdateCheck implements CheckInterface
 
     public function execute(VendorInterface $vendor): ResultValue
     {
+        if('-' === $vendor->githubRepository()) {
+            return ResultValue::info('-');
+        }
+
         $now = new \DateTimeImmutable();
         $date = $this->fetchLastCommitDate($vendor->githubRepository());
         $diff = $now->getTimestamp() - $date->getTimestamp();

@@ -59,4 +59,11 @@ final class Greg0ireEnumVendor implements VendorInterface
     public function listKeys(): array { return Greg0ireFirstEnum::getKeys(); }
     public function listValues(): array { return Greg0ireFirstEnum::getConstants(); }
     public function listKeysValues(): array { UnsupportedException::throwException(); }
+
+    public function getInstances(): array { UnsupportedException::throwException(); }
+    public function valuesExist(array $list): bool { UnsupportedException::throwException(); }
+    public function membersExist(array $list): bool { UnsupportedException::throwException(); }
+    public function instanceIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    public function memberIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    public function valueIn($enum, array $list): bool { UnsupportedException::throwException(); }
 }

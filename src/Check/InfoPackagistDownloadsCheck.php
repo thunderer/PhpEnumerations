@@ -23,11 +23,13 @@ final class InfoPackagistDownloadsCheck implements CheckInterface
 
     public function execute(VendorInterface $vendor): ResultValue
     {
-        return ResultValue::info((string)$this->fetchDownloads($vendor->packagistVendor()));
+        return ResultValue::info($this->fetchDownloads($vendor->packagistVendor()));
     }
 
-    private function fetchDownloads($package): int
+    private function fetchDownloads($package): string
     {
+        if('-' === $package) { return '-'; }
+
         $path = __DIR__.'/../../var/cache/packagist/'.strtolower(str_replace('/', '_', $package)).'.json';
         if(!file_exists($path)) {
             $client = new Client();
@@ -42,6 +44,8 @@ final class InfoPackagistDownloadsCheck implements CheckInterface
             }
         }
 
-        return json_decode(file_get_contents($path), true)['downloads']['total'];
+        $total = json_decode(file_get_contents($path), true)['downloads']['total'];
+
+        return number_format($total);
     }
 }

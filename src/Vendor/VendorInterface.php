@@ -12,6 +12,7 @@ interface VendorInterface
     public const SOURCE_STATIC = 3;
     public const SOURCE_CALLBACK = 4;
     public const SOURCE_ATTRIBUTES = 5;
+    public const SOURCE_NATIVE = 6;
 
     public function enumValidA(): object;
     public function enumValidB(): object;
@@ -26,6 +27,7 @@ interface VendorInterface
     public function fromConstant(string $class, string $key): object;
     public function fromConstructor(): void;
     public function fromEnum($enum): object;
+    public function getInstances(): array;
 
     public function getKey($enum): string;
     public function getValue($enum);
@@ -36,6 +38,11 @@ interface VendorInterface
     public function valueExists($value): bool;
     public function hasKey($enum, string $key): bool;
     public function hasValue($enum, $value): bool;
+    public function valuesExist(array $list): bool;
+    public function membersExist(array $list): bool;
+    public function instanceIn($enum, array $list): bool;
+    public function memberIn($enum, array $list): bool;
+    public function valueIn($enum, array $list): bool;
 
     public function keyToValue(string $key);
     public function valueToKey($value): string;

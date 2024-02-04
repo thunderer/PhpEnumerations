@@ -34,11 +34,13 @@ final class InfoGithubStarsCheck implements CheckInterface
 
     public function execute(VendorInterface $vendor): ResultValue
     {
-        return ResultValue::info((string)$this->fetchStars($vendor->githubRepository()));
+        return ResultValue::info($this->fetchStars($vendor->githubRepository()));
     }
 
-    private function fetchStars($repository): int
+    private function fetchStars($repository): string
     {
+        if('-' === $repository) { return '-'; }
+
         $path = __DIR__.'/../../var/cache/github/'.strtolower(str_replace('/', '_', $repository)).'.json';
         if(!file_exists($path)) {
             $client = new Client();
@@ -55,6 +57,8 @@ final class InfoGithubStarsCheck implements CheckInterface
             }
         }
 
-        return json_decode(file_get_contents($path), true)['stargazers_count'];
+        $value = json_decode(file_get_contents($path), true)['stargazers_count'];
+
+        return number_format($value);
     }
 }

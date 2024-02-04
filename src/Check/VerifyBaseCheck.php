@@ -26,7 +26,7 @@ final class VerifyBaseCheck implements CheckInterface
         $second = $vendor->enumValidB();
 
         $classes = array_intersect(class_parents($first), class_parents($second));
-        $interfaces = array_diff(array_intersect(class_implements($first), class_implements($second)), ['JsonSerializable']);
+        $interfaces = array_diff(array_intersect(class_implements($first), class_implements($second)), [\JsonSerializable::class, \Stringable::class]);
 
         if(empty($classes) && empty($interfaces)) {
             return ResultValue::pass();
@@ -38,6 +38,6 @@ final class VerifyBaseCheck implements CheckInterface
             return str_replace($prefix, '', $fqcn);
         }, $items); */
 
-        return ResultValue::failAnd((string)\count($items));
+        return ResultValue::failAndComment((string)\count($items), implode("\n", $items));
     }
 }

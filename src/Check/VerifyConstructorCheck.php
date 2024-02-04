@@ -36,14 +36,14 @@ final class VerifyConstructorCheck implements CheckInterface
             if('valid-b' === $vendor->getValue($enum)) {
                 return ResultValue::failAnd('value');
             }
-        } catch(\Error $e) {}
+        } catch(\Throwable $e) {}
 
         try {
             $enum->__construct('VALID_B');
             if('VALID_B' === $vendor->getKey($enum)) {
                 return ResultValue::failAnd('key');
             }
-        } catch(\Error $e) {}
+        } catch(\Throwable $e) {}
 
         return ResultValue::pass();
     }

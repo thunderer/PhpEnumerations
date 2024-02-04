@@ -59,4 +59,11 @@ final class CommerceguysEnumVendor implements VendorInterface
     public function listKeys(): array { UnsupportedException::throwException(); }
     public function listValues(): array { UnsupportedException::throwException(); }
     public function listKeysValues(): array { return CommerceguysFirstEnum::getAll(); }
+
+    public function getInstances(): array { UnsupportedException::throwException(); }
+    public function valuesExist(array $list): bool { UnsupportedException::throwException(); }
+    public function membersExist(array $list): bool { UnsupportedException::throwException(); }
+    public function instanceIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    public function memberIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    public function valueIn($enum, array $list): bool { UnsupportedException::throwException(); }
 }

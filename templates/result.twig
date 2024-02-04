@@ -54,16 +54,17 @@ table td.miss { background: #D1C4E9; }      table tr:hover td.miss { background:
         <tr class="{% if key is numeric %}separator{% endif %}">
             <td title="{{ key|description }}" class="info">{% if key is not numeric %}{{ key }}{% endif %}</td>
             {% for vendor, result in results %}
-                {% if key is same as('downloads') %}<td><a href="https://packagist.org/packages/{{ result.package|replace({ 'INFO, ': '' }) }}">{{ result[key]|replace({ 'INFO, ': '' }) }}</a></td>
-                {% elseif key is same as('stars') %}<td><a href="https://github.com/{{ result.repository|replace({ 'INFO, ': '' }) }}">{{ result[key]|replace({ 'INFO, ': '' }) }}</a></td>
+                {% if key is same as('downloads') and '-' is not same as result[key]|replace({ 'INFO, ': '' }) %}<td><a href="https://packagist.org/packages/{{ result.package|replace({ 'INFO, ': '' }) }}">{{ result[key]|replace({ 'INFO, ': '' }) }}</a></td>
+                {% elseif key is same as('stars') and '-' is not same as result[key]|replace({ 'INFO, ': '' }) %}<td><a href="https://github.com/{{ result.repository|replace({ 'INFO, ': '' }) }}">{{ result[key]|replace({ 'INFO, ': '' }) }}</a></td>
                 {% elseif result[key] == 'BREAK' %}<td></td>
-                {% elseif result[key] == 'PASS' %}<td class="success">&#x2714;</td>
-                {% elseif result[key] == 'FAIL' %}<td class="error">&#x2717;</td>
+                {% elseif result[key] == 'PASS' %}<td class="success" title="{{ result[key].getNote() }}">&#x2714;</td>
+                {% elseif result[key] == 'FAIL' %}<td class="error" title="{{ result[key].getNote() }}">&#x2717;</td>
+                {% elseif result[key] == 'TODO' %}<td class="todo">TODO</td>
                 {% elseif result[key] == 'N/A' %}<td class="miss">&mdash;</td>
-                {% elseif result[key]|startsWith('INFO,') %}<td>{{ result[key]|replace({'INFO, ': ''}) }}</td>
-                {% elseif result[key]|startsWith('PASS,') %}<td class="maybe">{{ result[key]|replace({'PASS, ': '&#x2714; '})|raw }}</td>
+                {% elseif result[key]|startsWith('INFO,') %}<td title="{{ result[key].getNote() }}">{{ result[key]|replace({'INFO, ': ''}) }}</td>
+                {% elseif result[key]|startsWith('PASS,') %}<td class="maybe" title="{{ result[key].getNote() }}">{{ result[key]|replace({'PASS, ': '&#x2714; '})|raw }}</td>
                 {% elseif result[key]|startsWith('TODO,') %}<td class="todo">&equals;</td>
-                {% elseif result[key]|startsWith('FAIL,') %}<td class="error">{{ result[key]|replace({'FAIL, ': '&#x2717; '})|raw }}</td>
+                {% elseif result[key]|startsWith('FAIL,') %}<td class="error" title="{{ result[key].getNote() }}">{{ result[key]|replace({'FAIL, ': '&#x2717; '})|raw }}</td>
                 {% else %}<td>{{ result[key] }}</td>
                 {% endif %}
             {% endfor %}

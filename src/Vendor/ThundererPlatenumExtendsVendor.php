@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Thunder\PhpEnumerations\Vendor;
 
+use Thunder\PhpEnumerations\Exception\NotImplementedException;
 use Thunder\Platenum\Enum\AbstractConstantsEnum;
 
 final class ThundererFirstExtendsEnum extends AbstractConstantsEnum
@@ -59,4 +60,14 @@ final class ThundererPlatenumExtendsVendor implements VendorInterface
     public function listKeys(): array { return ThundererFirstExtendsEnum::getMembers(); }
     public function listValues(): array { return ThundererFirstExtendsEnum::getValues(); }
     public function listKeysValues(): array { return ThundererFirstExtendsEnum::getMembersAndValues(); }
+
+    public function getInstances(): array { return ThundererFirstExtendsEnum::getInstances(); }
+    public function valuesExist(array $list): bool { return ThundererFirstExtendsEnum::valuesExist($list); }
+    public function membersExist(array $list): bool { return ThundererFirstExtendsEnum::membersExist($list); }
+    /** @param ThundererFirstTraitEnum $enum */
+    public function instanceIn($enum, array $list): bool { return $enum->isIn($list); }
+    /** @param ThundererFirstTraitEnum $enum */
+    public function memberIn($enum, array $list): bool { return $enum->hasMemberIn($list); }
+    /** @param ThundererFirstTraitEnum $enum */
+    public function valueIn($enum, array $list): bool { return $enum->hasValueIn($list); }
 }

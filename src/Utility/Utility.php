@@ -3,6 +3,12 @@ declare(strict_types=1);
 namespace Thunder\PhpEnumerations\Utility;
 
 use Thunder\PhpEnumerations\Check\CheckInterface;
+use Thunder\PhpEnumerations\Check\CreateInstancesCheck;
+use Thunder\PhpEnumerations\Check\ExistMembersCheck;
+use Thunder\PhpEnumerations\Check\ExistValuesCheck;
+use Thunder\PhpEnumerations\Check\HasKeyInCheck;
+use Thunder\PhpEnumerations\Check\HasValueInCheck;
+use Thunder\PhpEnumerations\Check\HasInstanceInCheck;
 use Thunder\PhpEnumerations\Check\ConvertToJsonCheck;
 use Thunder\PhpEnumerations\Check\ConvertToKeyCheck;
 use Thunder\PhpEnumerations\Check\ConvertToStringCheck;
@@ -53,6 +59,7 @@ use Thunder\PhpEnumerations\Vendor\HappytypesEnumerabletypeVendor;
 use Thunder\PhpEnumerations\Vendor\KonektEnumVendor;
 use Thunder\PhpEnumerations\Vendor\MarcmabePhpenumVendor;
 use Thunder\PhpEnumerations\Vendor\MyclabsPhpenumVendor;
+use Thunder\PhpEnumerations\Vendor\PhpNativeVendor;
 use Thunder\PhpEnumerations\Vendor\SpatieEnumVendor;
 use Thunder\PhpEnumerations\Vendor\ThundererPlatenumExtendsVendor;
 use Thunder\PhpEnumerations\Vendor\ThundererPlatenumTraitVendor;
@@ -63,29 +70,30 @@ use Thunder\PhpEnumerations\Vendor\VendorInterface;
  */
 final class Utility
 {
-    /** @return VendorInterface[] */
+    /** @return list<VendorInterface> */
     public static function vendors(): array
     {
         return [
             new BensampoLaravelenumVendor(),
             new CommerceguysEnumVendor(),
             new DaspridEnumVendor(),
-            new ElaoEnumVendor(),
+            // new ElaoEnumVendor(),
             new EloquentEnumerationEnumerationVendor(),
             new EloquentEnumerationMultitonVendor(),
             new EskyEnumVendor(),
             new Greg0ireEnumVendor(),
-            new HappytypesEnumerabletypeVendor(),
+            // new HappytypesEnumerabletypeVendor(),
             new KonektEnumVendor(),
             new MyclabsPhpenumVendor(),
             new MarcmabePhpenumVendor(),
             new SpatieEnumVendor(),
             new ThundererPlatenumTraitVendor(),
             new ThundererPlatenumExtendsVendor(),
+            new PhpNativeVendor(),
         ];
     }
 
-    /** @return CheckInterface[] */
+    /** @return list<CheckInterface> */
     public static function checks(): array
     {
         return [
@@ -103,6 +111,7 @@ final class Utility
             new CreateUsingValueCheck(),
             new CreateUsingConstCheck(),
             new CreateUsingEnumCheck(),
+            new CreateInstancesCheck(),
             new SeparatorCheck(),
 
             new ConvertToKeyCheck(),
@@ -119,8 +128,13 @@ final class Utility
 
             new HasKeyCheck(),
             new HasValueCheck(),
+            new HasKeyInCheck(),
+            new HasValueInCheck(),
+            new HasInstanceInCheck(),
             new ExistsKeyCheck(),
             new ExistsValueCheck(),
+            new ExistMembersCheck(),
+            new ExistValuesCheck(),
             new SeparatorCheck(),
 
             new ListKeyToValueCheck(),
@@ -145,7 +159,7 @@ final class Utility
 
     public static function description(string $key): string
     {
-        foreach(static::checks() as $check) {
+        foreach(self::checks() as $check) {
             if($check->getLabel() === $key) {
                 return $check->getDescription();
             }

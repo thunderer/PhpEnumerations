@@ -6,6 +6,7 @@ use Thunder\PhpEnumerations\Check\CheckInterface;
 use Thunder\PhpEnumerations\Exception\NotImplementedException;
 use Thunder\PhpEnumerations\Exception\UnsupportedException;
 use Thunder\PhpEnumerations\Utility\Utility;
+use Thunder\PhpEnumerations\ValueObject\ResultValue;
 use Thunder\PhpEnumerations\Vendor\VendorInterface;
 
 /**
@@ -22,10 +23,9 @@ final class Runner
             $name = str_replace('Vendor', '', $name);
 
             $record = [];
-            /** @var CheckInterface $check */
             foreach($checks as $check) {
                 if(array_key_exists($check->getLabel(), $record)) {
-                    throw new \LogicException(sprintf('Duplicate check label `%s`.', $check->getLabel()));
+                    throw new \LogicException(sprintf('Duplicate check label `%s` from `%s`.', $check->getLabel(), $check::class));
                 }
                 $result = $this->runHandler($vendor, $check);
                 if('BREAK' === (string)$result) {
@@ -34,14 +34,12 @@ final class Runner
                 }
                 $record[$check->getLabel()] = $result;
             }
-            $record['summary'] = static::computeSummary($record);
+            $record['summary'] = self::computeSummary($record);
 
             $results[$name] = $record;
         }
 
-        uasort($results, function(array $lhs, array $rhs) {
-            return strnatcasecmp($rhs['summary'], $lhs['summary']);
-        });
+        uasort($results, fn(array $lhs, array $rhs) => strnatcasecmp($rhs['summary'], $lhs['summary']));
 
         return $results;
     }

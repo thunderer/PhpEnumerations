@@ -59,4 +59,14 @@ final class EloquentEnumerationEnumerationVendor implements VendorInterface
     public function listKeys(): array { return EloquentEnumerationFirstEnum::members(); }
     public function listValues(): array { return EloquentEnumerationFirstEnum::members(); }
     public function listKeysValues(): array { return EloquentEnumerationFirstEnum::members(); }
+
+    public function getInstances(): array { UnsupportedException::throwException(); }
+    public function valuesExist(array $list): bool { UnsupportedException::throwException(); }
+    public function membersExist(array $list): bool { UnsupportedException::throwException(); }
+    /** @param AbstractEnumeration $enum */
+    public function instanceIn($enum, array $list): bool { return $enum->anyOfArray($list); }
+    /** @param AbstractEnumeration $enum */
+    public function memberIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    /** @param AbstractEnumeration $enum */
+    public function valueIn($enum, array $list): bool { UnsupportedException::throwException(); }
 }

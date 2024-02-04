@@ -41,7 +41,7 @@ $app->add(new class extends Command {
         }
         $header = array_merge([''], array_keys($results));
         $tests = array_keys($results[array_keys($results)[0]]);
-        foreach($tests as $index => $test) {
+        foreach($tests as $test) {
             if(is_int($test)) {
                 $table->addRow(new TableSeparator());
                 continue;

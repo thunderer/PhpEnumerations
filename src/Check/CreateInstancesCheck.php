@@ -2,33 +2,32 @@
 declare(strict_types=1);
 namespace Thunder\PhpEnumerations\Check;
 
-use PackageVersions\Versions;
 use Thunder\PhpEnumerations\ValueObject\ResultValue;
 use Thunder\PhpEnumerations\Vendor\VendorInterface;
 
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
-final class InfoVersionCheck implements CheckInterface
+final class CreateInstancesCheck implements CheckInterface
 {
     public function getLabel(): string
     {
-        return 'version';
+        return 'create-all';
     }
 
     public function getDescription(): string
     {
-        return 'Installed package version.';
+        return 'Get a list of all valid enum member instances.';
     }
 
     public function execute(VendorInterface $vendor): ResultValue
     {
-        if('-' === $vendor->packagistVendor()) {
-            return ResultValue::info('-');
+        $list = $vendor->getInstances();
+        $note = implode("\n", array_map(fn($x) => $vendor->getKey($x), $list));
+        if(8 === count($list)) {
+            return ResultValue::pass($note);
         }
 
-        $version = Versions::getVersion($vendor->packagistVendor());
-
-        return ResultValue::info(substr($version, 0, strpos($version, '@')));
+        return ResultValue::passBut((string)count($list), $note);
     }
 }

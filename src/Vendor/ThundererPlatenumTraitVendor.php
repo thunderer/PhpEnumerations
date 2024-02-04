@@ -60,4 +60,14 @@ final class ThundererPlatenumTraitVendor implements VendorInterface
     public function listKeys(): array { return ThundererFirstTraitEnum::getMembers(); }
     public function listValues(): array { return ThundererFirstTraitEnum::getValues(); }
     public function listKeysValues(): array { return ThundererFirstTraitEnum::getMembersAndValues(); }
+
+    public function getInstances(): array { return ThundererFirstTraitEnum::getInstances(); }
+    public function valuesExist(array $list): bool { return ThundererFirstTraitEnum::valuesExist($list); }
+    public function membersExist(array $list): bool { return ThundererFirstTraitEnum::membersExist($list); }
+    /** @param ThundererFirstTraitEnum $enum */
+    public function instanceIn($enum, array $list): bool { return $enum->isIn($list); }
+    /** @param ThundererFirstTraitEnum $enum */
+    public function memberIn($enum, array $list): bool { return $enum->hasMemberIn($list); }
+    /** @param ThundererFirstTraitEnum $enum */
+    public function valueIn($enum, array $list): bool { return $enum->hasValueIn($list); }
 }

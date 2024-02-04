@@ -71,4 +71,14 @@ final class EloquentEnumerationMultitonVendor implements VendorInterface
     public function listKeys(): array { return EloquentMultitonFirstEnum::members(); }
     public function listValues(): array { UnsupportedException::throwException(); }
     public function listKeysValues(): array { return EloquentMultitonFirstEnum::members(); }
+
+    public function getInstances(): array { UnsupportedException::throwException(); }
+    public function valuesExist(array $list): bool { UnsupportedException::throwException(); }
+    public function membersExist(array $list): bool { UnsupportedException::throwException(); }
+    /** @param AbstractMultiton $enum */
+    public function instanceIn($enum, array $list): bool { return $enum->anyOfArray($list); }
+    /** @param AbstractMultiton $enum */
+    public function memberIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    /** @param AbstractMultiton $enum */
+    public function valueIn($enum, array $list): bool { UnsupportedException::throwException(); }
 }

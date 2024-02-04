@@ -64,4 +64,11 @@ final class ElaoEnumVendor implements VendorInterface
     public function listKeys(): array { UnsupportedException::throwException(); }
     public function listValues(): array { return ElaoFirstEnum::values(); }
     public function listKeysValues(): array { return ElaoFirstEnum::instances(); }
+
+    public function getInstances(): array { NotImplementedException::throwException(); }
+    public function valuesExist(array $list): bool { NotImplementedException::throwException(); }
+    public function membersExist(array $list): bool { NotImplementedException::throwException(); }
+    public function instanceIn($enum, array $list): bool { NotImplementedException::throwException(); }
+    public function memberIn($enum, array $list): bool { NotImplementedException::throwException(); }
+    public function valueIn($enum, array $list): bool { NotImplementedException::throwException(); }
 }

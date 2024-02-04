@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace Thunder\PhpEnumerations\Vendor;
 
 use DASPRiD\Enum\AbstractEnum;
+use Thunder\PhpEnumerations\Exception\NotImplementedException;
 use Thunder\PhpEnumerations\Exception\UnsupportedException;
 
 final class DaspridFirstEnum extends AbstractEnum
@@ -58,4 +59,11 @@ final class DaspridEnumVendor implements VendorInterface
     public function listKeys(): array { return DaspridFirstEnum::values(); }
     public function listValues(): array { return DaspridFirstEnum::values(); }
     public function listKeysValues(): array { return DaspridFirstEnum::values(); }
+
+    public function getInstances(): array { UnsupportedException::throwException(); }
+    public function valuesExist(array $list): bool { UnsupportedException::throwException(); }
+    public function membersExist(array $list): bool { UnsupportedException::throwException(); }
+    public function instanceIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    public function memberIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    public function valueIn($enum, array $list): bool { UnsupportedException::throwException(); }
 }

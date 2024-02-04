@@ -59,4 +59,11 @@ final class KonektEnumVendor implements VendorInterface
     public function listKeys(): array { return KonektFirstEnum::consts(); }
     public function listValues(): array { return KonektFirstEnum::values(); }
     public function listKeysValues(): array { return KonektFirstEnum::toArray(); }
+
+    public function getInstances(): array { UnsupportedException::throwException(); }
+    public function valuesExist(array $list): bool { UnsupportedException::throwException(); }
+    public function membersExist(array $list): bool { UnsupportedException::throwException(); }
+    public function instanceIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    public function memberIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    public function valueIn($enum, array $list): bool { UnsupportedException::throwException(); }
 }

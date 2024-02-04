@@ -8,10 +8,12 @@ namespace Thunder\PhpEnumerations\ValueObject;
 final class ResultValue
 {
     private $result;
+    private ?string $note;
 
-    private function __construct(string $result)
+    private function __construct(string $result, ?string $note = null)
     {
         $this->result = $result;
+        $this->note = $note;
     }
 
     public function __toString(): string
@@ -19,16 +21,21 @@ final class ResultValue
         return $this->result;
     }
 
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
     /* --- NAMED --- */
 
     public static function fromSame($lhs, $rhs): self
     {
-        return $lhs === $rhs ? static::pass() : static::failNotSame($lhs, $rhs);
+        return $lhs === $rhs ? self::pass() : self::failNotSame($lhs, $rhs);
     }
 
     public static function fromCondition(bool $condition): self
     {
-        return $condition ? static::pass() : static::fail();
+        return $condition ? self::pass() : self::fail();
     }
 
     /* --- TYPES --- */
@@ -43,35 +50,40 @@ final class ResultValue
         return new self('INFO, '.$comment);
     }
 
-    public static function pass(): self
+    public static function pass(?string $note = null): self
     {
-        return new static('PASS');
+        return new self('PASS', $note);
     }
 
-    public static function passBut(string $reason): self
+    public static function passBut(string $reason, ?string $note = null): self
     {
-        return new static('PASS, '.$reason);
+        return new self('PASS, '.$reason, $note);
     }
 
     public static function todo(): self
     {
-        return new static('TODO');
+        return new self('TODO');
     }
 
     public static function fail(): self
     {
-        return new static('FAIL');
+        return new self('FAIL');
     }
 
     public static function failAnd(string $comment): self
     {
-        return new static('FAIL, '.$comment);
+        return new self('FAIL, '.$comment);
+    }
+
+    public static function failAndComment(string $comment, string $note): self
+    {
+        return new self('FAIL, '.$comment, $note);
     }
 
     public static function failNotSame($lhs, $rhs): self
     {
         $debug = is_array($rhs) ? json_encode(array_map('strval', $rhs)) : json_encode($rhs);
 
-        return static::failAnd('FAIL `'.var_export($lhs, true).'` !== `'.var_export($rhs, true).'` (<b>'.$debug.'</b>)');
+        return self::failAnd('FAIL `'.var_export($lhs, true).'` !== `'.var_export($rhs, true).'` (<b>'.$debug.'</b>)');
     }
 }

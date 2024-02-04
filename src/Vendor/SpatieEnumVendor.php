@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace Thunder\PhpEnumerations\Vendor;
 
 use Spatie\Enum\Enum;
+use Thunder\PhpEnumerations\Exception\NotImplementedException;
 use Thunder\PhpEnumerations\Exception\UnsupportedException;
 
 /**
@@ -42,7 +43,7 @@ final class SpatieEnumVendor implements VendorInterface
     public function fromKey(string $class, string $key): object { return $class::from($key); }
     public function fromValue(string $class, $value): object { UnsupportedException::throwException(); }
     public function fromConstant(string $class, string $key): object { return $class::$key(); }
-    public function fromConstructor(): void { new SpatieFirstEnum('SECOND'); }
+    public function fromConstructor(): void { new SpatieFirstEnum('PUBLIC_A'); }
     public function fromEnum($enum): object { UnsupportedException::throwException(); }
 
     public function getKey($enum): string { UnsupportedException::throwException(); }
@@ -58,7 +59,14 @@ final class SpatieEnumVendor implements VendorInterface
 
     public function keyToValue(string $key) { UnsupportedException::throwException(); }
     public function valueToKey($value): string { UnsupportedException::throwException(); }
-    public function listKeys(): array { return SpatieFirstEnum::getKeys(); }
-    public function listValues(): array { return SpatieFirstEnum::getValues(); }
+    public function listKeys(): array { return SpatieFirstEnum::toLabels(); }
+    public function listValues(): array { return SpatieFirstEnum::toValues(); }
     public function listKeysValues(): array { return SpatieFirstEnum::toArray(); }
+
+    public function getInstances(): array { UnsupportedException::throwException(); }
+    public function valuesExist(array $list): bool { UnsupportedException::throwException(); }
+    public function membersExist(array $list): bool { UnsupportedException::throwException(); }
+    public function instanceIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    public function memberIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    public function valueIn($enum, array $list): bool { UnsupportedException::throwException(); }
 }

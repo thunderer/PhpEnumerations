@@ -59,4 +59,14 @@ final class MarcmabePhpenumVendor implements VendorInterface
     public function listKeys(): array { return MarcmabeFirstEnum::getNames(); }
     public function listValues(): array { return MarcmabeFirstEnum::getValues(); }
     public function listKeysValues(): array { return MarcmabeFirstEnum::getConstants(); }
+
+    public function getInstances(): array { return MarcmabeFirstEnum::getEnumerators(); }
+    public function valuesExist(array $list): bool { UnsupportedException::throwException(); }
+    public function membersExist(array $list): bool { UnsupportedException::throwException(); }
+    /** @var Enum $enum */
+    public function instanceIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    /** @var Enum $enum */
+    public function memberIn($enum, array $list): bool { UnsupportedException::throwException(); }
+    /** @var Enum $enum */
+    public function valueIn($enum, array $list): bool { UnsupportedException::throwException(); }
 }

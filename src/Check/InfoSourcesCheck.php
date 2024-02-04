@@ -17,6 +17,7 @@ final class InfoSourcesCheck implements CheckInterface
         VendorInterface::SOURCE_STATIC => 'S',
         VendorInterface::SOURCE_CALLBACK => 'L',
         VendorInterface::SOURCE_ATTRIBUTES => 'A',
+        VendorInterface::SOURCE_NATIVE => 'N',
     ];
 
     public function getLabel(): string
@@ -27,6 +28,7 @@ final class InfoSourcesCheck implements CheckInterface
     public function getDescription(): string
     {
         return 'Available enumeration members sources.'."\n"
+            .'N - Native (PHP 8.1),'."\n"
             .'C - Constants,'."\n"
             .'D - Docblocks,'."\n"
             .'S - Static property,'."\n"
